@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>PAMIW Project - Landing Page</title>
+{% endblock %}
+
+{% block body %}
+<h2>PAMIW Project</h2>
+<form action="/login"  class="navigation">
+    <input type = "submit" value="Login">
+</form>
+<form action="/signup"  class="navigation">
+    <input type = "submit" value="Sign Up">
+</form>
+{% endblock %}

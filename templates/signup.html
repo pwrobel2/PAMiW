@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>PAMIW Project - Sign Up</title>
+{% endblock %}
+
+{% block body %}
+
+<h2>PAMIW Project - Sign Up</h2>
+<form action="/" method="POST" style="padding: 5px;" id="signUp">
+    <input type = "text" name="username" id="username" placeholder="Username" class="registrationForm">
+    <input type = "text" name="password" id="password" placeholder="Password" class="registrationForm">
+    <input type = "text" name="email" id="email" placeholder="Email" class="registrationForm"><br>
+    <input type = "submit" value="Sign Up" id="signUpBtn">
+</form>
+<br>
+    
+<form action="/" class="navigation" class="goBackBtn">
+    <input type = "submit" value="Main Page" >
+</form>
+{% endblock %}
