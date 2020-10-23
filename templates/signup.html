@@ -1,21 +1,36 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>PAMIW Project - Sign Up</title>
+<title>Paczex-Pol - Sign Up</title>
 {% endblock %}
 
 {% block body %}
 
-<h2>PAMIW Project - Sign Up</h2>
 <form action="/" method="POST" style="padding: 5px;" id="signUp">
-    <input type = "text" name="username" id="username" placeholder="Username" class="registrationForm">
-    <input type = "text" name="password" id="password" placeholder="Password" class="registrationForm">
-    <input type = "text" name="email" id="email" placeholder="Email" class="registrationForm"><br>
-    <input type = "submit" value="Sign Up" id="signUpBtn">
+    <h3>Registration Form</h3>
+    <ul id="signUpList">
+        <li>
+            <input type = "text" name="name" id="name" placeholder="Name"/>
+        </li>
+        <li>
+            <input type = "text" name="surname" id="surname" placeholder="Surname"/>
+        </li>
+        <li>
+            <input type = "text" name="password" id="password" placeholder="Password"/>
+        </li>
+        <li>
+            <input type = "text" name="password_repeat" id="password_repeat" placeholder="Repeat Password"/>
+        </li>
+        <li>
+            Upload photo:
+        </li>
+        <li> 
+            <input type = "file" name="img" id="img" accept="image/*"/>
+        </li>
+        <li>
+            <input type = "submit" value="Sign Up"/>
+        </li>
+    </ul>
 </form>
-<br>
-    
-<form action="/" class="navigation" class="goBackBtn">
-    <input type = "submit" value="Main Page" >
-</form>
+<div class="resetFloat"></div>
 {% endblock %}

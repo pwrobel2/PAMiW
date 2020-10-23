@@ -5,12 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-    {% block head %}{% endblock %}
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
-    <div id="baseDiv">
-    {% block body %}
-    {% endblock %}
+    <div id="container">
+        <div id="logoBar">
+            <h1>
+                Paczex-Pol Package Handling Service
+            </h1>
+        </div>
+        <div id="navigationBar">
+            <a href="{{ url_for('index') }}">
+                <div class="subpage">
+                    Main Page
+                </div>
+            </a>
+            <a href="{{ url_for('login') }}">
+                <div class="subpage">
+                    Login
+                </div>
+            </a>
+            <a href="{{ url_for('signup') }}">
+                <div class="subpage">
+                    Sign Up
+                </div>
+            </a>
+            <div class="resetFloat">
+            </div>
+        </div>
+        <div id="mainDiv">
+            {% block body %}
+            {% endblock %}
+            <footer>
+                Projekt
+            </footer>
+        </div>
     </div>
 </body>
 </html>

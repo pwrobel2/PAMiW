@@ -1,34 +1,90 @@
 body {
-    background: #112d32;
+    background: #3b3b3b;
 }
 
-h2 {
+#container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+}
+
+#logoBar {
     text-align: center;
+    width: 800px;
+    min-height: 80px;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
 }
 
-input {
-    padding: 5px;
-    
-}
 
-.navigation {
-    padding: 5px;
-    color: darkolivegreen;
-}
-
-.registrationForm {
-    margin: 3px;
-}
-
-#signUp {
-    text-align: center;
-}
-
-#baseDiv {
-    
-    margin: auto;
-    padding: 2%;
-    width: 20%;
-    background: #88BD8C;
+#navigationBar {
+    background-color: rgb(41, 41, 41);
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-height: 40px;
+    color: #ffffff;
     border-radius: 3px;
 }
+
+.subpage {
+    float: left;
+    min-width: 75px;
+    text-align: center;
+    height: 20px;
+    padding: 10px;
+    font-size: 18px;
+    border-right: 2px dotted #000000;
+    opacity: 0.8;
+    vertical-align: middle;
+}
+
+.subpage:hover {
+    background-color: rgb(255, 238, 0);
+    color: black;
+}
+
+
+.resetFloat{
+    float: none;
+}
+
+#mainDiv {
+    margin-top: 25px;
+    background-color: white;
+    min-height: 680px;
+    border-radius: 5px;
+    padding: 10px;
+    min-width: 780px;
+}
+
+footer {
+    border-top: 2px black dotted;
+    min-height: 100px;
+    min-width: 780px;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+}
+
+li{
+    padding: 5px;
+}
+
+#signUpList{
+    list-style-type: none;
+    padding-top: 20px;
+    margin-left: 260px;
+}
+
+a { text-decoration: none; color: white;}
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
+h3 { text-align: center; }

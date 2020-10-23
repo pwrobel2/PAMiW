@@ -12,7 +12,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/signup', methods=['POST','GET'])
+@app.route('/sign-up', methods=['POST','GET'])
 def signup():
     
     return render_template('signup.html')
