@@ -10,12 +10,12 @@
 </head>
 <body>
     <div id="container">
-        <div id="logoBar">
+        <header>
             <h1>
                 Paczex-Pol Package Handling Service
             </h1>
-        </div>
-        <div id="navigationBar">
+        </header>
+        <nav>
             <a href="{{ url_for('index') }}">
                 <div class="subpage">
                     Main Page
@@ -33,14 +33,14 @@
             </a>
             <div class="resetFloat">
             </div>
-        </div>
-        <div id="mainDiv">
+        </nav>
+        <section>
             {% block body %}
             {% endblock %}
             <footer>
                 Projekt
             </footer>
-        </div>
+        </section>
     </div>
 </body>
 </html>

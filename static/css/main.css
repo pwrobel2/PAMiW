@@ -8,7 +8,7 @@ body {
     width: 800px;
 }
 
-#logoBar {
+header {
     text-align: center;
     width: 800px;
     min-height: 80px;
@@ -19,7 +19,7 @@ body {
 }
 
 
-#navigationBar {
+nav {
     background-color: rgb(41, 41, 41);
     padding: 10px;
     margin-top: 20px;
@@ -51,7 +51,7 @@ body {
     float: none;
 }
 
-#mainDiv {
+section {
     margin-top: 25px;
     background-color: white;
     min-height: 680px;
