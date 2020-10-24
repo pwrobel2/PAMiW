@@ -1,0 +1,22 @@
+{
+  "name": "",
+  "css_prefix_text": "icon-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "798f480ad47c7c7fa6c64ece88ea2180",
+      "css": "github-text",
+      "code": 57573,
+      "src": "elusive"
+    },
+    {
+      "uid": "dd6df3b754e8d0dbf09d9b24088f0442",
+      "css": "box",
+      "code": 128230,
+      "src": "iconic"
+    }
+  ]
+}

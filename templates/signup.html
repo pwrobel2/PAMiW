@@ -10,33 +10,33 @@
 <form action="/" method="POST" style="padding: 5px;" id="signUp" enctype="multipart/form-data">
     <h3>Sender Registration Form</h3>
     <ul id="signUpList">
-        <li>
-            <input type = "text" name="name" id="name" placeholder="Name"/>
+        <li id="nameLI">
+            <input type = "text" name="name" id="name" placeholder="Name" onfocus="deleteNameMsg()" onblur="checkIfNameOk()"/>
+        </li>
+        <li id="surnameLI">
+            <input type = "text" name="surname" id="surname" placeholder="Surname" onfocus="deleteSurnameMsg()" onblur="checkIfSurnameOk()"/>
+        </li>
+        <li id="usernameLI">
+            <input type = "text" name="username" id="username" placeholder="Username"   onfocus="deleteUsernameMsg()" onblur="checkIfUsernameOk()"/>
+        </li>
+        <li id="passwordLI">
+            <input type = "password" name="password" id="password" placeholder="Password"   onfocus="deletePasswordMsg()" onblur="checkIfPasswordOk()"/>
         </li>
         <li>
-            <input type = "text" name="surname" id="surname" placeholder="Surname"/>
-        </li>
-        <li>
-            <input type = "text" name="username" id="username" placeholder="Username"/>
-        </li>
-        <li>
-            <input type = "password" name="password" id="password" placeholder="Password"/>
-        </li>
-        <li>
-            <input type = "password" name="password_repeat" id="password_repeat" placeholder="Repeat Password"/>
+            <input type = "password" name="passwordRepeat" id="passwordRepeat" placeholder="Repeat Password"    onfocus="deletePasswordMsg()" onblur="checkIfPasswordOk()"/>
         </li>
         <li>
             Show passwords:
             <input type = "checkbox" onclick="showPassword()"/>
         </li>
-        <li>
+        <li id="photoLI">
             Upload photo:
         </li>
         <li> 
-            <input type = "file" name="img" id="img" accept=" .png, .jpg "/>
+            <input type = "file" name="img" id="img" accept=" .png, .jpg "  onchange="verifyWholeForm()"/>
         </li>
         <li>
-            <input type = "submit" value="Sign Up"/>
+            <input type = "submit" id="submitBtn" value="Sign Up" disabled="true"/>
         </li>
     </ul>
 </form>
