@@ -1,5 +1,6 @@
 body {
     background: #3b3b3b;
+    font-family: 'Lato', sans-serif;
 }
 
 #container {
@@ -42,7 +43,6 @@ nav {
     padding: 10px;
     font-size: 18px;
     border-right: 2px dotted #000000;
-    opacity: 0.8;
     vertical-align: middle;
 }
 
@@ -71,21 +71,21 @@ section {
     background-color: white;
     min-height: 680px;
     border-radius: 5px;
-    padding: 10px;
-    min-width: 780px;
+    padding: 20px;
+    min-width: 760px;
 }
 
 footer {
     border-top: 2px black dotted;
-    min-height: 20px;
-    min-width: 780px;
-    margin-left: -10px;
-    margin-right: -10px;
-    padding: 15px;
+    height: 25px;
+    min-width: 800px;
+    padding-top: 5px;
+    margin-left: -20px;
+    margin-right: -20px;
     position: absolute;
     bottom: 0;
     text-align: center;
-    font-size: 10px;
+    font-size: 15px;
 }
 
 li{
@@ -95,7 +95,7 @@ li{
 #signUpList {
     list-style-type: none;
     padding-top: 20px;
-    margin-left: 260px;
+    margin-left: 240px;
 }
 
 #msgDiv {

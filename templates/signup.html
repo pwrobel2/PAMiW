@@ -11,13 +11,13 @@
     <h3>Sender Registration Form</h3>
     <ul id="signUpList">
         <li id="nameLI">
-            <input type = "text" name="name" id="name" placeholder="Name" onfocus="deleteNameMsg()" onblur="checkIfNameOk()"/>
+            <input type = "text" name="firstname" id="name" placeholder="Name" onfocus="deleteNameMsg()" onblur="checkIfNameOk()"/>
         </li>
         <li id="surnameLI">
-            <input type = "text" name="surname" id="surname" placeholder="Surname" onfocus="deleteSurnameMsg()" onblur="checkIfSurnameOk()"/>
+            <input type = "text" name="lastname" id="surname" placeholder="Surname" onfocus="deleteSurnameMsg()" onblur="checkIfSurnameOk()"/>
         </li>
         <li id="usernameLI">
-            <input type = "text" name="username" id="username" placeholder="Username"   onfocus="deleteUsernameMsg()" onblur="checkIfUsernameOk()"/>
+            <input type = "text" name="login" id="username" placeholder="Username"   onfocus="deleteUsernameMsg()" onblur="checkIfUsernameOk()"/>
         </li>
         <li id="passwordLI">
             <input type = "password" name="password" id="password" placeholder="Password"   onfocus="deletePasswordMsg()" onblur="checkIfPasswordOk()"/>
@@ -29,11 +29,20 @@
             Show passwords:
             <input type = "checkbox" onclick="showPassword()"/>
         </li>
+        <li>
+            Gender:
+        </li>
+        <li>
+            <input type = "radio" id="Male" name="sex" value="M" onchange="verifyWholeForm()">
+            <label for="Male">Male</label>
+            <input type = "radio" id="Female" name="sex" value="F" onchange="verifyWholeForm()">
+            <label for="Female">Female</label>
+        </li>
         <li id="photoLI">
             Upload photo:
         </li>
         <li> 
-            <input type = "file" name="img" id="img" accept=" .png, .jpg "  onchange="verifyWholeForm()"/>
+            <input type = "file" name="photo" id="img" accept=" .png, .jpg "  onchange="verifyWholeForm()"/>
         </li>
         <li>
             <input type = "submit" id="submitBtn" value="Sign Up" disabled="true"/>
