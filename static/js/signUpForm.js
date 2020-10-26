@@ -26,7 +26,6 @@ function checkIfNameOk() {
         entry.id ="nameMsg";
         list.insertBefore(entry,document.getElementById("nameLI"));
         verifyWholeForm();
-
     }   
 }
 
@@ -74,10 +73,10 @@ function deleteSurnameMsg() {
 
 
 function checkIfUsernameOk(){
-    if(document.getElementById("username").value.length<8){
+    if(document.getElementById("username").value.length<4){
         var list = document.getElementById("signUpList");
         var entry = document.createElement("li");
-        var entryText = document.createTextNode("Username must be atleast 8 characters long!");
+        var entryText = document.createTextNode("Username must be atleast 4 characters long!");
         entry.appendChild(entryText);
         entry.id ="usernameMsg";
         list.insertBefore(entry,document.getElementById("usernameLI"));
@@ -92,31 +91,32 @@ function checkIfUsernameOk(){
         verifyWholeForm();
     }   else {
         var xhr = new XMLHttpRequest();
-        var url = "https://infinite-hamlet-29399.herokuapp.com/check/" + document.getElementById("username").value;
-        
-        xhr.open('GET',url);
-        xhr.onreadystatechange = function(){
-            var DONE = 4;
-            var OK = 200;
-            if(xhr.readyState == DONE){
-                if(xhr.status == OK){
-                    console.log(xhr.responseText);
-                    msg = xhr.responseText;
-
-                    var list = document.getElementById("signUpList");
-                    var entry = document.createElement("li");
-                    var entryText = document.createTextNode(xhr.responseText);
-                    entry.appendChild(entryText);
-                    entry.id ="usernameMsg";
-                    list.insertBefore(entry,document.getElementById("usernameLI"));
-                    verifyWholeForm();
-                } else {
-                    console.log('Error: ' + xhr.status);
-                }
+        var username = document.getElementById("username").value;
+        var url = "https://infinite-hamlet-29399.herokuapp.com/check/" + username;
+            
+        fetch(url).then(function(response) {
+            if(response.status !== 200) {
+                console.log("Problem occured. Status code : " + response.status);
+                return;
+            }   else{
+                return response.json();
             }
-        }
-        xhr.send(null);
+        }).then(function(json){
+            var loginStatus = json[username];
+            if(loginStatus==="taken"){
+                var list = document.getElementById("signUpList");
+                var entry = document.createElement("li");
+                var entryText = document.createTextNode("Username is already taken!");
+                entry.appendChild(entryText);
+                entry.id ="usernameMsg";
+                list.insertBefore(entry,document.getElementById("usernameLI"));
+                verifyWholeForm();
+            }
+            console.log(loginStatus);
 
+        }).catch(function(error){
+            console.log('Error: '+ error);
+        });
     }
 }
 
