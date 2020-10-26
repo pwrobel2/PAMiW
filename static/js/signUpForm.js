@@ -92,7 +92,7 @@ function checkIfUsernameOk(){
         verifyWholeForm();
     }   else {
         var xhr = new XMLHttpRequest();
-        var url = "https://infinte-hamlet-29399.herokuapp.com/check/" + document.getElementById("username").value;
+        var url = "https://infinite-hamlet-29399.herokuapp.com/check/" + document.getElementById("username").value;
         
         xhr.open('GET',url);
         xhr.onreadystatechange = function(){
