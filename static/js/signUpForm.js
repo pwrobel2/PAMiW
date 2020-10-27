@@ -1,7 +1,8 @@
+
 function verifyWholeForm()  {
     var x = 0;
     if((document.getElementById("nameMsg") === null)&&(document.getElementById("surnameMsg") === null)&&(document.getElementById("usernameMsg") === null)&&(document.getElementById("passwordMsg") === null)&&(document.getElementById("photoMsg") === null)
-    &&(document.getElementById("name").value !== "")&&(document.getElementById("surname").value !== "")&&(document.getElementById("username").value !== "")&&(document.getElementById("password").value !== "")&&(document.getElementById("passwordRepeat").value !== "")&&(document.getElementById("img").value !== "")&&((document.getElementById("Male").checked)||(document.getElementById("Female").checked))){
+    &&(document.getElementById("name").value !== "")&&(document.getElementById("surname").value !== "")&&(document.getElementById("username").value !== "")&&(document.getElementById("password").value !== "")&&(document.getElementById("passwordRepeat").value !== "")&&(document.getElementById("img").value !== "")&&((document.getElementById("male").checked)||(document.getElementById("female").checked))){
         document.getElementById("submitBtn").disabled = false;
     }   else    {
         document.getElementById("submitBtn").disabled = true;
@@ -17,11 +18,11 @@ function checkIfNameOk() {
         entry.id ="nameMsg";
         list.insertBefore(entry,document.getElementById("nameLI"));
         verifyWholeForm();
-    }   else if(/\s{2,}/.test(document.getElementById("name").value) == true) {
+    }   else if(/^[A-ZĄĆĘŁŃÓŚŻŹ][a-ząćęłńóśżź]+$/.test(document.getElementById("name").value) == false) {
 
         var list = document.getElementById("signUpList");
         var entry = document.createElement("li");
-        var entryText = document.createTextNode("Name can't have more than 2 whitespaces in a row!");
+        var entryText = document.createTextNode("Name should start with capital letter and not contain any whitespaces!");
         entry.appendChild(entryText);
         entry.id ="nameMsg";
         list.insertBefore(entry,document.getElementById("nameLI"));
@@ -49,10 +50,10 @@ function checkIfSurnameOk() {
         entry.id ="surnameMsg";
         list.insertBefore(entry,document.getElementById("surnameLI"));
         verifyWholeForm();
-    }   else if(/\s{2,}/.test(document.getElementById("surname").value) == true) {
+    }   else if(/^[A-ZĄĆĘŁŃÓŚŻŹ][a-ząćęłńóśżź]+$/.test(document.getElementById("surname").value) == false) {
         var list = document.getElementById("signUpList");
         var entry = document.createElement("li");
-        var entryText = document.createTextNode("Surname can't have more than 2 whitespaces in a row!");
+        var entryText = document.createTextNode("Surname should start with capital letter and not contain any whitespaces!");
         entry.appendChild(entryText);
         entry.id ="surnameMsg";
         list.insertBefore(entry,document.getElementById("surnameLI"));
@@ -73,18 +74,11 @@ function deleteSurnameMsg() {
 
 
 function checkIfUsernameOk(){
-    if(document.getElementById("username").value.length<4){
+    
+    if(/^[a-z]{3,12}$/.test(document.getElementById("username").value) == false) {
         var list = document.getElementById("signUpList");
         var entry = document.createElement("li");
-        var entryText = document.createTextNode("Username must be atleast 4 characters long!");
-        entry.appendChild(entryText);
-        entry.id ="usernameMsg";
-        list.insertBefore(entry,document.getElementById("usernameLI"));
-        verifyWholeForm();
-    }   else if(/\s/.test(document.getElementById("username").value) == true) {
-        var list = document.getElementById("signUpList");
-        var entry = document.createElement("li");
-        var entryText = document.createTextNode("Username can't have any whitespaces!");
+        var entryText = document.createTextNode("Username must be between 3 and 12 lowercase letters!");
         entry.appendChild(entryText);
         entry.id ="usernameMsg";
         list.insertBefore(entry,document.getElementById("usernameLI"));
@@ -186,3 +180,24 @@ function showPassword() {
     }
 }
 
+document.getElementById("name").addEventListener("focus",function() {   deleteNameMsg() });
+document.getElementById("name").addEventListener("blur",function() {    checkIfNameOk() });
+
+document.getElementById("surname").addEventListener("focus",function() { deleteSurnameMsg()});
+document.getElementById("surname").addEventListener("blur",function() { checkIfSurnameOk()});
+
+document.getElementById("username").addEventListener("focus",function() { deleteUsernameMsg()});
+document.getElementById("username").addEventListener("blur",function() { checkIfUsernameOk()});
+
+document.getElementById("password").addEventListener("focus",function() { deletePasswordMsg()});
+document.getElementById("password").addEventListener("blur",function() { checkIfPasswordOk()});
+
+document.getElementById("passwordRepeat").addEventListener("focus",function() { deletePasswordMsg()});
+document.getElementById("passwordRepeat").addEventListener("blur",function() { checkIfPasswordOk()});
+
+document.getElementById("showPasswordBtn").addEventListener("change",function() { showPassword()});
+
+document.getElementById("male").addEventListener("change",function() { verifyWholeForm()});
+document.getElementById("female").addEventListener("change",function() { verifyWholeForm()});
+
+document.getElementById("img").addEventListener("change",function() { verifyWholeForm()});

@@ -69,7 +69,7 @@ nav {
 section {
     margin-top: 25px;
     background-color: white;
-    min-height: 680px;
+    height: 680px;
     border-radius: 5px;
     padding: 20px;
     min-width: 760px;
@@ -98,16 +98,7 @@ li{
     margin-left: 240px;
 }
 
-#msgDiv {
-    width: 100px;
-    height: 100px;
-    background-color: red;
-}
 
-.errorMsg {
-    color : red;
-    background-color: red;
-}
 
 a { text-decoration: none; color: white;}
 a:visited { text-decoration: none; }

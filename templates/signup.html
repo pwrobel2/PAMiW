@@ -2,47 +2,46 @@
 
 {% block head %}
 <title>Paczex-Pol - Sign Up</title>
-<script type="text/javascript" src="{{ url_for('static', filename='js/signUpForm.js') }}"></script>
 {% endblock %}
 
 {% block body %}
 
-<form action="/" method="POST" style="padding: 5px;" id="signUp" enctype="multipart/form-data">
+<form action="https://infinite-hamlet-29399.herokuapp.com/sender/register" method="POST" style="padding: 5px;" id="signUp" enctype="multipart/form-data">
     <h3>Sender Registration Form</h3>
     <ul id="signUpList">
         <li id="nameLI">
-            <input type = "text" name="firstname" id="name" placeholder="Name" onfocus="deleteNameMsg()" onblur="checkIfNameOk()"/>
+            <input type = "text" name="firstname" id="name" placeholder="Name"/>
         </li>
         <li id="surnameLI">
-            <input type = "text" name="lastname" id="surname" placeholder="Surname" onfocus="deleteSurnameMsg()" onblur="checkIfSurnameOk()"/>
+            <input type = "text" name="lastname" id="surname" placeholder="Surname"/>
         </li>
         <li id="usernameLI">
-            <input type = "text" name="login" id="username" placeholder="Username"   onfocus="deleteUsernameMsg()" onblur="checkIfUsernameOk()"/>
+            <input type = "text" name="login" id="username" placeholder="Username"/>
         </li>
         <li id="passwordLI">
-            <input type = "password" name="password" id="password" placeholder="Password"   onfocus="deletePasswordMsg()" onblur="checkIfPasswordOk()"/>
+            <input type = "password" name="password" id="password" placeholder="Password"/>
         </li>
         <li>
-            <input type = "password" name="passwordRepeat" id="passwordRepeat" placeholder="Repeat Password"    onfocus="deletePasswordMsg()" onblur="checkIfPasswordOk()"/>
+            <input type = "password" name="passwordRepeat" id="passwordRepeat" placeholder="Repeat Password"/>
         </li>
         <li>
             Show passwords:
-            <input type = "checkbox" onclick="showPassword()"/>
+            <input type = "checkbox" id="showPasswordBtn"/>
         </li>
         <li>
             Gender:
         </li>
         <li>
-            <input type = "radio" id="Male" name="sex" value="M" onchange="verifyWholeForm()">
-            <label for="Male">Male</label>
-            <input type = "radio" id="Female" name="sex" value="F" onchange="verifyWholeForm()">
-            <label for="Female">Female</label>
+            <input type = "radio" id="male" name="sex" value="M"/>
+            <label for="male">Male</label>
+            <input type = "radio" id="female" name="sex" value="F"/>
+            <label for="female">Female</label>
         </li>
         <li id="photoLI">
             Upload photo:
         </li>
         <li> 
-            <input type = "file" name="photo" id="img" accept=" .png, .jpg "  onchange="verifyWholeForm()"/>
+            <input type = "file" name="photo" id="img" accept=" .png, .jpg "/>
         </li>
         <li>
             <input type = "submit" id="submitBtn" value="Sign Up" disabled="true"/>
@@ -50,4 +49,5 @@
     </ul>
 </form>
 <div class="resetFloat"></div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/signUpForm.js') }}"></script>
 {% endblock %}
