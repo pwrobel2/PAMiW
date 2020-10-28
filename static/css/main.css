@@ -67,6 +67,7 @@ nav {
 }
 
 section {
+    position: relative;
     margin-top: 25px;
     background-color: white;
     height: 680px;
