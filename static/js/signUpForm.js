@@ -1,8 +1,8 @@
 
 function verifyWholeForm()  {
-    var x = 0;
-    if((document.getElementById("nameMsg") === null)&&(document.getElementById("surnameMsg") === null)&&(document.getElementById("usernameMsg") === null)&&(document.getElementById("passwordMsg") === null)&&(document.getElementById("photoMsg") === null)
-    &&(document.getElementById("name").value !== "")&&(document.getElementById("surname").value !== "")&&(document.getElementById("username").value !== "")&&(document.getElementById("password").value !== "")&&(document.getElementById("passwordRepeat").value !== "")&&(document.getElementById("img").value !== "")&&((document.getElementById("male").checked)||(document.getElementById("female").checked))){
+    if((document.getElementById("nameMsg") === null)&&(document.getElementById("surnameMsg") === null)&&(document.getElementById("usernameMsg") === null)&&(document.getElementById("passwordMsg") === null)&&(document.getElementById("emailMsg") === null)&&(document.getElementById("addressMsg") === null)&&
+    (document.getElementById("name").value !== "")&&(document.getElementById("surname").value !== "")&&(document.getElementById("username").value !== "")&&(document.getElementById("password").value !== "")&&(document.getElementById("passwordRepeat").value !== "")&&(document.getElementById("email").value !== "")&&(document.getElementById("address").value !== ""))
+    {
         document.getElementById("submitBtn").disabled = false;
     }   else    {
         document.getElementById("submitBtn").disabled = true;
@@ -126,6 +126,51 @@ function deleteUsernameMsg(){
 }
 
 
+function checkIfEmailOk() {
+    if(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(document.getElementById("email").value) == false) {
+
+        var list = document.getElementById("signUpList");
+        var entry = document.createElement("li");
+        var entryText = document.createTextNode("Email is incorrect!");
+        entry.appendChild(entryText);
+        entry.id ="emailMsg";
+        list.insertBefore(entry,document.getElementById("emailLI"));
+        verifyWholeForm();
+    }   
+}
+
+function deleteEmailMsg() {
+    var tmp = document.getElementById("emailMsg");
+    if(tmp != null) {
+        var list = document.getElementById("signUpList");
+        list.removeChild(tmp);
+        verifyWholeForm();
+    }
+}
+
+
+function checkIfAddressOk() {
+    if(document.getElementById("address").value.length<5){
+        var list = document.getElementById("signUpList");
+        var entry = document.createElement("li");
+        var entryText = document.createTextNode("Address must be atleast 5 characters long!");
+        entry.appendChild(entryText);
+        entry.id ="addressMsg";
+        list.insertBefore(entry,document.getElementById("addressLI"));
+        verifyWholeForm();
+    }  
+}
+
+
+function deleteAddressMsg() {
+    var tmp = document.getElementById("addressMsg");
+    if(tmp != null) {
+        var list = document.getElementById("signUpList");
+        list.removeChild(tmp);
+        verifyWholeForm();
+    }
+}
+
 
 function checkIfPasswordOk() {
     if(document.getElementById("password").value.length<8){
@@ -189,6 +234,12 @@ document.getElementById("surname").addEventListener("blur",function() { checkIfS
 document.getElementById("username").addEventListener("focus",function() { deleteUsernameMsg()});
 document.getElementById("username").addEventListener("blur",function() { checkIfUsernameOk()});
 
+document.getElementById("email").addEventListener("focus",function() { deleteEmailMsg()});
+document.getElementById("email").addEventListener("blur",function() { checkIfEmailOk()});
+
+document.getElementById("address").addEventListener("focus",function() { deleteAddressMsg()});
+document.getElementById("address").addEventListener("blur",function() { checkIfAddressOk()});
+
 document.getElementById("password").addEventListener("focus",function() { deletePasswordMsg()});
 document.getElementById("password").addEventListener("blur",function() { checkIfPasswordOk()});
 
@@ -196,8 +247,3 @@ document.getElementById("passwordRepeat").addEventListener("focus",function() { 
 document.getElementById("passwordRepeat").addEventListener("blur",function() { checkIfPasswordOk()});
 
 document.getElementById("showPasswordBtn").addEventListener("change",function() { showPassword()});
-
-document.getElementById("male").addEventListener("change",function() { verifyWholeForm()});
-document.getElementById("female").addEventListener("change",function() { verifyWholeForm()});
-
-document.getElementById("img").addEventListener("change",function() { verifyWholeForm()});

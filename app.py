@@ -20,7 +20,18 @@ def signup():
 @app.route('/sender/login', methods=['POST','GET'])
 def login():
     
-    return render_template('login.html')
+    return render_template('workinprogress.html')
+
+@app.route('/sender/logout', methods=['GET'])
+def logout():
+    
+    return render_template('workinprogress.html')
+
+
+@app.route('/sender/dashboard', methods=['GET'])
+def dashboard():
+    
+    return render_template('workinprogress.html')
 
 
 if __name__ == "__main__":
