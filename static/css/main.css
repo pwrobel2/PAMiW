@@ -70,9 +70,10 @@ section {
     position: relative;
     margin-top: 25px;
     background-color: white;
-    height: 680px;
+    min-height: 280px;
     border-radius: 5px;
     padding: 20px;
+    padding-bottom: 40px;
     min-width: 760px;
 }
 
@@ -94,6 +95,12 @@ li{
 }
 
 #signUpList {
+    list-style-type: none;
+    padding-top: 20px;
+    margin-left: 240px;
+}
+
+#loginList {
     list-style-type: none;
     padding-top: 20px;
     margin-left: 240px;

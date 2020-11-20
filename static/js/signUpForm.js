@@ -17,7 +17,6 @@ function checkIfNameOk() {
         entry.appendChild(entryText);
         entry.id ="nameMsg";
         list.insertBefore(entry,document.getElementById("nameLI"));
-        verifyWholeForm();
     }   else if(/^[A-ZĄĆĘŁŃÓŚŻŹ][a-ząćęłńóśżź]+$/.test(document.getElementById("name").value) == false) {
 
         var list = document.getElementById("signUpList");
@@ -26,8 +25,8 @@ function checkIfNameOk() {
         entry.appendChild(entryText);
         entry.id ="nameMsg";
         list.insertBefore(entry,document.getElementById("nameLI"));
-        verifyWholeForm();
-    }   
+    }
+    verifyWholeForm();   
 }
 
 
@@ -36,8 +35,8 @@ function deleteNameMsg() {
     if(tmp != null) {
         var list = document.getElementById("signUpList");
         list.removeChild(tmp);
-        verifyWholeForm();
     }
+    verifyWholeForm();
 }
 
 
@@ -49,7 +48,7 @@ function checkIfSurnameOk() {
         entry.appendChild(entryText);
         entry.id ="surnameMsg";
         list.insertBefore(entry,document.getElementById("surnameLI"));
-        verifyWholeForm();
+        
     }   else if(/^[A-ZĄĆĘŁŃÓŚŻŹ][a-ząćęłńóśżź]+$/.test(document.getElementById("surname").value) == false) {
         var list = document.getElementById("signUpList");
         var entry = document.createElement("li");
@@ -57,9 +56,8 @@ function checkIfSurnameOk() {
         entry.appendChild(entryText);
         entry.id ="surnameMsg";
         list.insertBefore(entry,document.getElementById("surnameLI"));
-        verifyWholeForm();
-
     }
+    verifyWholeForm();
 }
 
 
@@ -68,8 +66,8 @@ function deleteSurnameMsg() {
     if(tmp != null) {
         var list = document.getElementById("signUpList");
         list.removeChild(tmp);
-        verifyWholeForm();
     }
+    verifyWholeForm();
 }
 
 
@@ -82,7 +80,6 @@ function checkIfUsernameOk(){
         entry.appendChild(entryText);
         entry.id ="usernameMsg";
         list.insertBefore(entry,document.getElementById("usernameLI"));
-        verifyWholeForm();
     }   else {
         var xhr = new XMLHttpRequest();
         var username = document.getElementById("username").value;
@@ -104,7 +101,6 @@ function checkIfUsernameOk(){
                 entry.appendChild(entryText);
                 entry.id ="usernameMsg";
                 list.insertBefore(entry,document.getElementById("usernameLI"));
-                verifyWholeForm();
             }
             console.log(loginStatus);
 
@@ -112,6 +108,7 @@ function checkIfUsernameOk(){
             console.log('Error: '+ error);
         });
     }
+    verifyWholeForm();
 }
 
 
@@ -121,22 +118,21 @@ function deleteUsernameMsg(){
     if(tmp != null) {
         var list = document.getElementById("signUpList");
         list.removeChild(tmp);
-        verifyWholeForm();
     }
+    verifyWholeForm();
 }
 
 
 function checkIfEmailOk() {
     if(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(document.getElementById("email").value) == false) {
-
         var list = document.getElementById("signUpList");
         var entry = document.createElement("li");
         var entryText = document.createTextNode("Email is incorrect!");
         entry.appendChild(entryText);
         entry.id ="emailMsg";
         list.insertBefore(entry,document.getElementById("emailLI"));
-        verifyWholeForm();
     }   
+    verifyWholeForm();
 }
 
 function deleteEmailMsg() {
@@ -144,8 +140,8 @@ function deleteEmailMsg() {
     if(tmp != null) {
         var list = document.getElementById("signUpList");
         list.removeChild(tmp);
-        verifyWholeForm();
     }
+    verifyWholeForm();
 }
 
 
@@ -157,8 +153,8 @@ function checkIfAddressOk() {
         entry.appendChild(entryText);
         entry.id ="addressMsg";
         list.insertBefore(entry,document.getElementById("addressLI"));
-        verifyWholeForm();
     }  
+    verifyWholeForm();
 }
 
 
@@ -180,7 +176,6 @@ function checkIfPasswordOk() {
         entry.appendChild(entryText);
         entry.id ="passwordMsg";
         list.insertBefore(entry,document.getElementById("passwordLI"));
-        verifyWholeForm();
     
     }   else if(/\s+/.test(document.getElementById("password").value) == true) {
 
@@ -190,7 +185,6 @@ function checkIfPasswordOk() {
         entry.appendChild(entryText);
         entry.id ="passwordMsg";
         list.insertBefore(entry,document.getElementById("passwordLI"));
-        verifyWholeForm();
 
     }   else if(document.getElementById("password").value !== document.getElementById("passwordRepeat").value){
         var list = document.getElementById("signUpList");
@@ -199,8 +193,8 @@ function checkIfPasswordOk() {
         entry.appendChild(entryText);
         entry.id ="passwordMsg";
         list.insertBefore(entry,document.getElementById("passwordLI"));
-        verifyWholeForm();
     }
+    verifyWholeForm()
 }
 
 

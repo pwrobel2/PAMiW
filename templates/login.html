@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Paczex-Pol - Login</title>
+{% endblock %}
+
+{% block body %}
+
+<form action="/sender/login" method="POST" style="padding: 5px;" id="signIn" enctype="application/x-www-form-urlencoded">
+    <h3>Sender Login Form</h3>
+    <ul id="loginList">
+        <li id="usernameLI">
+            <input type = "text" name="login" id="username" placeholder="Username"/>
+        </li>
+        <li id="passwordLI">
+            <input type = "password" name="password" id="password" placeholder="Password"/>
+        </li>
+        <li>
+            <input type = "submit" id="signInBtn" value="Sign In" disabled="true"/>
+        </li>
+    </ul>
+</form>
+<div class="resetFloat"></div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/loginForm.js') }}"></script>
+{% endblock %}

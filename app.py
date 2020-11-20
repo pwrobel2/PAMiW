@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['GET'])
 def index():
     
     return render_template('index.html')
@@ -20,7 +20,7 @@ def signup():
 @app.route('/sender/login', methods=['POST','GET'])
 def login():
     
-    return render_template('workinprogress.html')
+    return render_template('login.html')
 
 @app.route('/sender/logout', methods=['GET'])
 def logout():
