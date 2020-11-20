@@ -83,7 +83,7 @@ function checkIfUsernameOk(){
     }   else {
         var xhr = new XMLHttpRequest();
         var username = document.getElementById("username").value;
-        var url = "https://infinite-hamlet-29399.herokuapp.com/check/" + username;
+        var url = "/sender/users/" + username;
             
         fetch(url).then(function(response) {
             if(response.status !== 200) {
