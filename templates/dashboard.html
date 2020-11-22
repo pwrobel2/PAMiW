@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Paczex-Pol - Dashboard</title>
+{% endblock %}
+
+{% block body %}
+
+
+    <h3>Dashboard</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Package Recipient</th>
+            <th>Locker</th>
+            <th>Size</th>
+            <th>Delete</th>
+        </tr>
+    </table>
+    <form action="/sender/dashboard" method="POST" style="padding: 5px;" id="addLabel">    
+        <input type = "text" name="name" id="name" placeholder="Name"/>
+        <input type = "text" name="lockerID" id="lockerID" placeholder="Locker ID"/>
+        <input type = "text" name="size" id="size" placeholder="Size"/>
+        <input type = "submit" id="submitBtn" value="Create Label" disabled="true"/>
+    </form>
+<div class="resetFloat"></div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/dashboardForm.js') }}"></script>
+{% endblock %}

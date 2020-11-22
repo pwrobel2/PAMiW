@@ -1,11 +1,8 @@
 FROM python:3-slim
+RUN mkdir /app
 WORKDIR /app
-
-ADD app.py .
-ADD requirements.txt .
-ADD /static/ .
-ADD /templates/ .
-
-RUN python3 -m pip install -r requirements.txt
-
-CMD ["python3","app.py"]
+ADD requirements.txt /app
+RUN pip3 install -r requirements.txt
+ADD . /app
+EXPOSE 8000
+ENTRYPOINT [ "gunicorn","-b","0.0.0.0:8000","app:app" ]
