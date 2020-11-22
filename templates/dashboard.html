@@ -8,7 +8,7 @@
 
 
     <h3>Dashboard</h3>
-    <table>
+   <table>
         <tr>
             <th>ID</th>
             <th>Package Recipient</th>
@@ -16,8 +16,21 @@
             <th>Size</th>
             <th>Delete</th>
         </tr>
+        {% for package in packages %}
+            <tr>
+                <td>{{ package.uuid.decode() }}</td>
+                <td>{{ package.name }}</td>
+                <td>{{ package.lockerID }}</td>
+                <td>{{ package.size }}</td>
+                <td>
+                    <form action="/sender/delete/package/{{ package.uuid.decode() }}" method="DELETE">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
     </table>
-    <form action="/sender/dashboard" method="POST" style="padding: 5px;" id="addLabel">    
+    <form action="/sender/dashboard" method="POST" style="padding: 5px;" id="addPackage">    
         <input type = "text" name="name" id="name" placeholder="Name"/>
         <input type = "text" name="lockerID" id="lockerID" placeholder="Locker ID"/>
         <input type = "text" name="size" id="size" placeholder="Size"/>

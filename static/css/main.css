@@ -62,7 +62,10 @@ nav {
     font-size: 25px;
 }
 
-#addLabel {
+#addPackage {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 20px;
     text-align: center;
 }
@@ -137,4 +140,12 @@ th {
 td {
     text-align: center;
     padding: 5px;
+}
+
+p {
+    padding: 20px;
+    text-align: center;
+    border: 2px solid;
+    margin: auto;
+    width: 50%;
 }

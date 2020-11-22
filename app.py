@@ -7,10 +7,13 @@ from redis import StrictRedis
 from datetime import datetime
 import uuid
 
+load_dotenv()
+
+host = getenv("REDIS_HOST")
+port = getenv("REDIS_PORT")
+
 db = StrictRedis(host='redis',port=6379, db=0)
 
-
-load_dotenv()
 SESSION_TYPE = 'redis'
 SESSION_REDIS = db
 
@@ -20,14 +23,19 @@ app.config.from_object(__name__)
 app.secret_key = getenv("SECRET_KEY")
 ses = Session(app)
 
-class Label:
+class Package:
     def __init__(self, uuid, name, lockerID, size):
         self.uuid = uuid
         self.name = name
         self.lockerID = lockerID
         self.size = size
     
-
+@app.before_request
+def test_db():
+    try:
+        db.ping()
+    except:
+        return "Error: Can't connect to redis", 500
 
 @app.route('/', methods=['GET'])
 def index():
@@ -40,7 +48,7 @@ def signup_form():
     
     user = session.get("username")
     if user is not None:
-        flash("You are already logged in!")
+        flash("You already logged in!")
         return redirect(url_for("dashboard_print"))
     
     return render_template('signup.html')
@@ -78,7 +86,7 @@ def signup():
 
     add_user(username, password, firstname, lastname, email, address)
 
-    #flash successful login
+    flash("Registered successfully!")
     return redirect(url_for('login_form'))
 
 
@@ -87,7 +95,7 @@ def login_form():
 
     user = session.get("username")
     if user is not None:
-        flash("You are already logged in!")
+        flash("You already logged in!")
         return redirect(url_for("dashboard_print"))
     
     return render_template('login.html')
@@ -98,7 +106,7 @@ def login():
     password = request.form.get("password")
 
     if not is_login_correct(username, password):
-        #flash wrong username password
+        flash("Wrong username or password!")
         return redirect(url_for('login_form'))
 
     
@@ -114,7 +122,7 @@ def login():
 def logout():
     user = session.get("username")
     if user is None:
-        flash("Login in first!")
+        flash("Log in first!")
         return redirect(url_for("login_form"))
     session.clear()
     return redirect(url_for('index'))
@@ -124,30 +132,46 @@ def logout():
 def dashboard_print():
     user = session.get("username")
     if user is None:
-        flash("Login in first!")
+        flash("Log in first!")
         return redirect(url_for("login_form"))
 
-    labels = []
-    for i in get_labels(user):
-        uuid = i
+    packages = []
+    for i in get_packages(user):
+        i = i.decode()
+        uuid = db.hget(f'package:{i}', "id")
         name = db.hget(f'package:{i}', "name")
+        name = name.decode()
         lockerID = db.hget(f'package:{i}', "lockerID")
+        lockerID = lockerID.decode()
         size = db.hget(f'package:{i}', "size")
-        labels.append(Label(uuid,name,lockerID,size)) 
+        size = size.decode()
+        packages.append(Package(uuid,name,lockerID,size)) 
 
-    return render_template('dashboard.html', labels=labels)
+    return render_template('dashboard.html', packages=packages)
 
 @app.route('/sender/dashboard', methods=['POST'])
 def dashboard_add():
     user = session.get("username")
     if user is None:
-        flash("Login in first!")
+        flash("Log in first!")
         return redirect(url_for("login_form"))
 
     name = request.form.get("name")
     lockerID = request.form.get("lockerID")
     size = request.form.get("size")
-    add_label(user, name, lockerID, size)
+    add_package(user, name, lockerID, size)
+
+    return redirect(url_for("dashboard_print"))
+
+@app.route('/sender/delete/package/<packageID>')
+def delete_package(packageID):
+    user = session.get("username")
+    if user is None:
+        flash("Log in first!")
+        return redirect(url_for("login_form"))
+
+    flash("Deleted package: " + packageID)
+    remove_package(user,packageID)
 
     return redirect(url_for("dashboard_print"))
 
@@ -182,20 +206,22 @@ def add_user(username, password, firstname, lastname, email, address):
     db.hset(f"user:{username}","address", address)
     return True
 
-def add_label(username, name, lockerID, size):
-    pid = str(uuid.uuid4())
-    db.hset(f"package:{pid}","name", name)
-    db.hset(f"package:{pid}","lockerID", lockerID)
-    db.hset(f"package:{pid}","size", size)
-    db.sadd(f"packages:{username}", pid)
+def add_package(username, name, lockerID, size):
+    tmp = uuid.uuid4()
+    packageID = tmp.int
+    db.hset(f"package:{packageID}","id", packageID)
+    db.hset(f"package:{packageID}","name", name)
+    db.hset(f"package:{packageID}","lockerID", lockerID)
+    db.hset(f"package:{packageID}","size", size)
+    db.sadd(f"packages:{username}", packageID)
     return True
 
-def remove_label(username, pid):
-    db.srem(f"packages:{username}", pid)
-    db.delete(f"package:{pid}")
+def remove_package(username, packageID):
+    db.srem(f"packages:{username}", packageID)
+    db.delete(f"package:{packageID}")
     return True
 
-def get_labels(username):
+def get_packages(username):
     return db.smembers(f"packages:{username}")
 
 

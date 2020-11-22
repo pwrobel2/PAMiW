@@ -7,6 +7,7 @@ function verifyForm()  {
     }
 }
 
+
 document.getElementById("name").addEventListener("blur",function() { verifyForm()});
 document.getElementById("lockerID").addEventListener("blur",function() { verifyForm()});
 document.getElementById("size").addEventListener("blur",function() { verifyForm()});
