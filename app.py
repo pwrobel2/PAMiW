@@ -9,10 +9,12 @@ import uuid
 
 load_dotenv()
 
-host = getenv("REDIS_HOST")
-port = getenv("REDIS_PORT")
 
-db = StrictRedis(host='redis',port=6379, db=0)
+REDIS_HOST = getenv("REDIS_HOST")
+REDIS_PORT = getenv("REDIS_PORT")
+REDIS_PASS = getenv("REDIS_PASS")
+
+db = StrictRedis(host=REDIS_HOST,port=REDIS_PORT,password=REDIS_PASS,db=0)
 
 SESSION_TYPE = 'redis'
 SESSION_REDIS = db
