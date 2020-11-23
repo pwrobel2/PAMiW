@@ -12,9 +12,8 @@ load_dotenv()
 
 REDIS_HOST = getenv("REDIS_HOST")
 REDIS_PORT = getenv("REDIS_PORT")
-REDIS_PASS = getenv("REDIS_PASS")
 
-db = StrictRedis(host=REDIS_HOST,port=str(REDIS_PORT),password=REDIS_PASS,db=0)
+db = StrictRedis(host=REDIS_HOST,port=REDIS_PORT, db=0)
 
 SESSION_TYPE = 'redis'
 SESSION_REDIS = db
