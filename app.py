@@ -10,10 +10,16 @@ import uuid
 load_dotenv()
 
 
-REDIS_HOST = getenv("REDIS_HOST")
-REDIS_PORT = getenv("REDIS_PORT")
 
-db = StrictRedis(host=REDIS_HOST,port=REDIS_PORT, db=0)
+REDIS_URL = getenv("REDIS_URL")
+
+if REDIS_URL is None:
+    REDIS_HOST = getenv("REDIS_HOST")
+    REDIS_PORT = getenv("REDIS_PORT")
+    db = StrictRedis(host=REDIS_HOST,port=REDIS_PORT, db=0)
+else:
+    db = StrictRedis.from_url(REDIS_URL)
+
 
 SESSION_TYPE = 'redis'
 SESSION_REDIS = db
