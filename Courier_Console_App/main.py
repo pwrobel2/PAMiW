@@ -25,9 +25,9 @@ def print_packages(packages):
 def update_packages(packageID):
     try:
         response = requests.put(api_url+f'/sender/package/{packageID}',headers=jwt_header).json()
+        print('Update status: ' + response['msg'])
     except:
-        return print("Couldn't connect to API")
-    print('Update status: ' + response['msg'])
+        print("Couldn't connect to API")
 
 if __name__ == '__main__':
     print('Paczex-Pol courier console app\n')
