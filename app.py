@@ -6,6 +6,8 @@ from bcrypt import hashpw, gensalt, checkpw
 from redis import StrictRedis
 from datetime import datetime
 import uuid
+import requests
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity, decode_token
 
 load_dotenv()
 
@@ -13,21 +15,20 @@ load_dotenv()
 
 REDIS_URL = getenv("REDIS_URL")
 
-if REDIS_URL is None:
-    REDIS_HOST = getenv("REDIS_HOST")
-    REDIS_PORT = getenv("REDIS_PORT")
-    db = StrictRedis(host=REDIS_HOST,port=REDIS_PORT, db=0)
-else:
-    db = StrictRedis.from_url(REDIS_URL)
-
-
+db = StrictRedis.from_url(REDIS_URL)
 SESSION_TYPE = 'redis'
 SESSION_REDIS = db
+api_url = 'https://paczex-api.herokuapp.com'
 
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.secret_key = getenv("SECRET_KEY")
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['JWT_SECRET_KEY'] = getenv("JWT_SECRET")
+app.config['JWT_TOKEN_LOCATION'] = 'headers'
+
+jwt = JWTManager(app)
 ses = Session(app)
 
 class Package:
@@ -142,19 +143,14 @@ def dashboard_print():
         flash("Log in first!")
         return redirect(url_for("login_form"))
 
-    packages = []
-    for i in get_packages(user):
-        i = i.decode()
-        uuid = db.hget(f'package:{i}', "id")
-        name = db.hget(f'package:{i}', "name")
-        name = name.decode()
-        lockerID = db.hget(f'package:{i}', "lockerID")
-        lockerID = lockerID.decode()
-        size = db.hget(f'package:{i}', "size")
-        size = size.decode()
-        packages.append(Package(uuid,name,lockerID,size)) 
-
-    return render_template('dashboard.html', packages=packages)
+    token = create_access_token(identity=user)
+    auth_header = {"Authorization":f"Bearer {token}"}
+    try:
+        tmp = requests.get(api_url+'/sender/packages', headers=auth_header).json()
+    except:
+        return "Couldn't connect to API", 503
+    packages = tmp['_embedded']['packages']
+    return render_template('dashboard.html', packages = packages)
 
 @app.route('/sender/dashboard', methods=['POST'])
 def dashboard_add():
@@ -166,19 +162,34 @@ def dashboard_add():
     name = request.form.get("name")
     lockerID = request.form.get("lockerID")
     size = request.form.get("size")
-    add_package(user, name, lockerID, size)
+    if (size is None) or (lockerID is None) or (name is None):
+        return "Not enough package info provided", 400
+    
+    token = create_access_token(identity=user)
+    auth_header = {"Authorization":f"Bearer {token}"}
+    try:
+        requests.post(api_url+f'/sender/package?name={name}&size={size}&lockerID={lockerID}', headers=auth_header)
+        flash(f'Added package: {name}')
+    except:
+        return "Couldn't connect to API", 503
 
     return redirect(url_for("dashboard_print"))
 
-@app.route('/sender/delete/package/<packageID>')
+@app.route('/sender/package/delete/<packageID>', methods=['GET']) #html form doesn't support delete
 def delete_package(packageID):
     user = session.get("username")
     if user is None:
         flash("Log in first!")
         return redirect(url_for("login_form"))
 
-    flash("Deleted package: " + packageID)
-    remove_package(user,packageID)
+    token = create_access_token(identity=user)
+    auth_header = {"Authorization":f"Bearer {token}"}
+    try:
+        tmp = requests.delete(api_url+f'/sender/package/{packageID}', headers=auth_header)
+        flash(f'Deleted package: {packageID}')
+    except:
+        return "Couldn't connect to API", 503
+
 
     return redirect(url_for("dashboard_print"))
 
@@ -212,24 +223,6 @@ def add_user(username, password, firstname, lastname, email, address):
     db.hset(f"user:{username}","email", email)
     db.hset(f"user:{username}","address", address)
     return True
-
-def add_package(username, name, lockerID, size):
-    tmp = uuid.uuid4()
-    packageID = tmp.int
-    db.hset(f"package:{packageID}","id", packageID)
-    db.hset(f"package:{packageID}","name", name)
-    db.hset(f"package:{packageID}","lockerID", lockerID)
-    db.hset(f"package:{packageID}","size", size)
-    db.sadd(f"packages:{username}", packageID)
-    return True
-
-def remove_package(username, packageID):
-    db.srem(f"packages:{username}", packageID)
-    db.delete(f"package:{packageID}")
-    return True
-
-def get_packages(username):
-    return db.smembers(f"packages:{username}")
 
 
 if __name__ == "__main__":

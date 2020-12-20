@@ -11,21 +11,24 @@
    <table>
         <tr>
             <th>ID</th>
-            <th>Package Recipient</th>
+            <th>Package Name</th>
             <th>Locker</th>
             <th>Size</th>
-            <th>Delete</th>
+            <th>Status</th>
         </tr>
         {% for package in packages %}
             <tr>
-                <td>{{ package.uuid.decode() }}</td>
-                <td>{{ package.name }}</td>
-                <td>{{ package.lockerID }}</td>
-                <td>{{ package.size }}</td>
+                <td>{{ package['uuid'] }}</td>
+                <td>{{ package['name'] }}</td>
+                <td>{{ package['size'] }}</td>
+                <td>{{ package['lockerID'] }}</td>
                 <td>
-                    <form action="/sender/delete/package/{{ package.uuid.decode() }}" method="DELETE">
+                    {{ package['status'] }}
+                    {% if package['status'] == 'Generated' %}
+                    <form action="/sender/package/delete/{{ package['uuid'] }}" method="GET">
                         <input type="submit" value="Delete">
                     </form>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
