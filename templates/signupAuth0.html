@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Paczex-Pol - Enter missing data</title>
+{% endblock %}
+
+{% block body %}
+
+<form action="/sender/login/auth0/new" method="POST" style="padding: 5px;" id="signUp">
+    <h3>Enter missing data</h3>
+    <ul id="signUpList">
+        <li id="nameLI">
+            <input type = "text" name="firstname" id="name" placeholder="Name"/>
+        </li>
+        <li id="surnameLI">
+            <input type = "text" name="lastname" id="surname" placeholder="Surname"/>
+        </li>
+        <li id="addressLI">
+            <input type = "text" name="address" id="address" placeholder="Address"/>
+        </li>
+        <li>
+            <input type = "submit" id="submitBtn" value="Sign Up" disabled="true"/>
+        </li>
+    </ul>
+</form>
+<div class="resetFloat"></div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/signUpAuth0Form.js') }}"></script>
+{% endblock %}
